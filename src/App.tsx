@@ -1,6 +1,7 @@
 import './App.css'
 import AppTitle from './components/AppTitle'
 import ComponentWithChildren from './components/ComponentWithChildren'
+import Counter from './components/Counter'
 import StringList from './components/StringList'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <p>I'm a child</p>
       </ComponentWithChildren>
       <ComponentWithChildren children={'I am a child too'} />
+      <Counter initialCount={23} step={5} />
     </>
   )
 }
