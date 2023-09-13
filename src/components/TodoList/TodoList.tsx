@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from "react"
+import { useCallback, useEffect, useId, useMemo, useState } from "react"
 import TodoListItem from "./TodoListItem"
 import { Todo, fetchTodos, filterOutCompleted, filterTodosByTitle } from "../../model/Todo"
 
@@ -52,6 +52,24 @@ const TodoList = () => {
         [todosFilteredByCompleted, filterText],
     )
 
+    const handleToggleCompleted = useCallback(
+        (todoId: Todo['id'], completed: boolean) => {
+            const updatedTodos = todos.map(todo => {
+                if (todo.id === todoId) {
+                    return {
+                        ...todo,
+                        completed: completed,
+                    }
+                }
+
+                return todo
+            })
+
+            setTodos(updatedTodos)
+        },
+        [todos]
+    )
+
     return (
         <div>
             <p>{tick ? 'tick' : 'tock'}</p>
@@ -66,10 +84,12 @@ const TodoList = () => {
             </div>
             <ul>
                 {todosFilteredByTitleAndCompletedStatus.map(todo => 
-                    <TodoListItem 
+                    <TodoListItem
                         key={todo.id} 
+                        id={todo.id}
                         completed={todo.completed}
                         title={todo.title}
+                        handleCompletedChange={handleToggleCompleted}
                     />
                 )}
             </ul>
