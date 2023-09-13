@@ -6,7 +6,7 @@ type TodoListItemProps = {
 const TodoListItem = (props: TodoListItemProps) => (
     <li>
         <label>
-            <input type="checkbox" checked={props.completed} />
+            <input type="checkbox" readOnly checked={props.completed} />
             {props.title}
         </label>
     </li>

@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react"
+import { useEffect, useId, useMemo, useState } from "react"
 import TodoListItem from "./TodoListItem"
 import { Todo, fetchTodos, filterOutCompleted, filterTodosByTitle } from "../../model/Todo"
 
@@ -6,6 +6,17 @@ const TodoList = () => {
     const [todos, setTodos] = useState<Array<Todo>>([])
     const [filterText, setFilterText] = useState('')
     const [filterCompleted, setFilterCompleted] = useState(false)
+    
+    // only for demonstration of useMemo
+    const [tick, setTick] = useState(false)
+    useEffect(
+        () => {
+            const interval = setInterval(() => setTick(currentTick => !currentTick), 500)
+
+            return () => clearInterval(interval)
+        },
+        [],
+    )
     
     const filterTextInputId = useId()
     const filterCompletedInputId = useId()
@@ -25,10 +36,25 @@ const TodoList = () => {
         setFilterCompleted(e.target.checked)
     }
 
-    const filteredTodos = filterOutCompleted(filterTodosByTitle(todos, filterText), filterCompleted)
+    const todosFilteredByCompleted = useMemo(
+        () => {
+            console.log('filter by completed')
+            return filterOutCompleted(todos, filterCompleted)
+        },
+        [todos, filterCompleted],
+    )
+
+    const todosFilteredByTitleAndCompletedStatus = useMemo(
+        () => {
+            console.log('filter by title')
+            return filterTodosByTitle(todosFilteredByCompleted, filterText)
+        },
+        [todosFilteredByCompleted, filterText],
+    )
 
     return (
         <div>
+            <p>{tick ? 'tick' : 'tock'}</p>
             <h2>Todos</h2>
             <div>
                 <label htmlFor={filterTextInputId}>filter: </label>
@@ -39,7 +65,7 @@ const TodoList = () => {
                 <label htmlFor={filterCompletedInputId}>filter out completed</label>
             </div>
             <ul>
-                {filteredTodos.map(todo => 
+                {todosFilteredByTitleAndCompletedStatus.map(todo => 
                     <TodoListItem 
                         key={todo.id} 
                         completed={todo.completed}

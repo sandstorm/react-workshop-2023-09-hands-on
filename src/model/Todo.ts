@@ -18,6 +18,7 @@ export function filterTodosByTitle(todos: Array<Todo>, filterText: string) {
 }
 
 export function filterOutCompleted(todos: Array<Todo>, shouldFilterOutCompletedTodos: boolean) {
+
     if (!shouldFilterOutCompletedTodos) {
         return todos
     }
