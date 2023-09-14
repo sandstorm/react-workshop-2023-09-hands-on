@@ -14,14 +14,36 @@ export async function fetchTodos() {
 }
 
 export function filterTodosByTitle(todos: Array<Todo>, filterText: string) {
-    return todos.filter(todo => todo.title.toLocaleLowerCase().includes(filterText.toLocaleLowerCase()))
+    return todos.filter((todo) =>
+        todo.title.toLocaleLowerCase().includes(filterText.toLocaleLowerCase())
+    )
 }
 
-export function filterOutCompleted(todos: Array<Todo>, shouldFilterOutCompletedTodos: boolean) {
-
+export function filterOutCompleted(
+    todos: Array<Todo>,
+    shouldFilterOutCompletedTodos: boolean
+) {
     if (!shouldFilterOutCompletedTodos) {
         return todos
     }
 
-    return todos.filter(todo => !todo.completed)
+    return todos.filter((todo) => !todo.completed)
+}
+
+// immutable update of a single Todo in a list of Todos
+export function updateTodoCompleted(
+    todoId: Todo['id'],
+    newCompleted: Todo['completed'],
+    todos: Array<Todo>
+) {
+    return todos.map((todo) => {
+        if (todo.id === todoId) {
+            return {
+                ...todo,
+                completed: newCompleted,
+            }
+        }
+
+        return todo
+    })
 }

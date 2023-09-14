@@ -5,19 +5,23 @@
     _Das Verhalten des Counters soll dabei unverändert bleiben_
 */
 
-import { useReducer } from "react"
+import { useReducer } from 'react'
 
 type CounterState = {
     count: number
 }
 
-const createIncrementAction = (amount: number) => ({ type: 'INCREMENT', payload: { amount } } as const)
-const createDecrementAction = () => ({ type: 'DECREMENT' } as const)
+const createIncrementAction = (amount: number) =>
+    ({ type: 'INCREMENT', payload: { amount } }) as const
+const createDecrementAction = () => ({ type: 'DECREMENT' }) as const
 
 type IncrementAction = ReturnType<typeof createIncrementAction>
 type DecrementAction = ReturnType<typeof createDecrementAction>
 
-function counterReducer(state: CounterState, action: IncrementAction | DecrementAction) {
+function counterReducer(
+    state: CounterState,
+    action: IncrementAction | DecrementAction
+) {
     switch (action.type) {
         case 'INCREMENT': {
             return {
@@ -34,19 +38,23 @@ function counterReducer(state: CounterState, action: IncrementAction | Decrement
         }
 
         default: {
-            return state;
+            return state
         }
     }
 }
 
 const useCounterReducer = (initialCount: number) => {
-    const [state, dispatch] = useReducer(counterReducer, { count: initialCount })
+    const [state, dispatch] = useReducer(counterReducer, {
+        count: initialCount,
+    })
 
-    const incrementBy = (amount: number) => { dispatch(createIncrementAction(amount)) }
+    const incrementBy = (amount: number) => {
+        dispatch(createIncrementAction(amount))
+    }
 
     return {
         count: state.count,
-        incrementBy
+        incrementBy,
     }
 }
 

@@ -1,25 +1,24 @@
-import { memo, useCallback } from "react"
-import useCounter from "../hooks/useCounter"
+import { memo, useCallback } from 'react'
+import useCounter from '../hooks/useCounter'
 
-type CounterProps = { 
+type CounterProps = {
     initialCount: number
     step?: number
 }
 
 const DEFAULT_STEP = 1
-  
-const Counter = ({ initialCount, step = DEFAULT_STEP }: CounterProps) => {
-    const { count, handleDecrement, handleIncrement } = useCounter(initialCount, step)
 
-    console.log('render')
-    const handleMyOwnDecrement = useCallback(
-        () => {
-            // ...
-            handleDecrement()
-        },
-        [handleDecrement]
+const Counter = ({ initialCount, step = DEFAULT_STEP }: CounterProps) => {
+    const { count, handleDecrement, handleIncrement } = useCounter(
+        initialCount,
+        step
     )
-    
+
+    const handleMyOwnDecrement = useCallback(() => {
+        // ...
+        handleDecrement()
+    }, [handleDecrement])
+
     return (
         <div className="counter">
             <p>Count: {count}</p>
@@ -29,6 +28,4 @@ const Counter = ({ initialCount, step = DEFAULT_STEP }: CounterProps) => {
     )
 }
 
-const MemoizedCounter = memo(Counter)
-
-export default MemoizedCounter
+export default memo(Counter)

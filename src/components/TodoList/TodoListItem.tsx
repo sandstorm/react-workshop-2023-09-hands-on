@@ -1,5 +1,5 @@
-import { memo } from "react"
-import { Todo } from "../../model/Todo"
+import { memo } from 'react'
+import { Todo } from '../../model/Todo'
 
 type TodoListItemProps = {
     id: Todo['id']
@@ -17,7 +17,11 @@ const TodoListItem = (props: TodoListItemProps) => {
     return (
         <li>
             <label>
-                <input type="checkbox" onChange={handleChange} checked={props.completed} />
+                <input
+                    type="checkbox"
+                    onChange={handleChange}
+                    checked={props.completed}
+                />
                 {props.title}
             </label>
         </li>

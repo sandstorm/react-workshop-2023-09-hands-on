@@ -1,7 +1,7 @@
 import React from 'react'
 
 type CounterProps = {
-    initialCount: number, 
+    initialCount: number
     step?: number
 }
 
@@ -22,11 +22,15 @@ class CounterClass extends React.PureComponent<CounterProps, CountState> {
     }
 
     handleIncrement = () => {
-        this.setState({ count: this.state.count + (this.props.step ?? DEFAULT_STEP) })
+        this.setState({
+            count: this.state.count + (this.props.step ?? DEFAULT_STEP),
+        })
     }
 
     handleDecrement() {
-        this.setState({ count: this.state.count - (this.props.step ?? DEFAULT_STEP) })
+        this.setState({
+            count: this.state.count - (this.props.step ?? DEFAULT_STEP),
+        })
     }
 
     render() {

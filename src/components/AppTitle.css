@@ -1,0 +1,21 @@
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    list-style: none;
+}
+
+nav li + li {
+    margin-left: 8px;
+}
+
+nav li .active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+nav li:hover {
+    text-decoration: underline;
+}
